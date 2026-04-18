@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHEREUM ON SOLANA (Ticker:ETHEREUM)</title>
+    <meta name="description" content="Before 2024, when time did not exist, the Ascended whispered: ETHEREUM on SOLANA is Naruto Hockey Sonic.">
+
+    <!-- Jupiter Terminal Script for Solana Swap Widget -->
+    <script src="https://terminal.jup.ag/main-v2.js" data-preload></script>
+
+    <style>
+        /* ==========================================================================
+           WEB 1.0 / ETHEREUM ON SOLANA BOOTLEG STYLES 
+           ========================================================================== */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: "Times New Roman", Times, serif;
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            overflow-x: hidden;
+            /* CUSTOM SONIC CURSOR */
+            cursor: url('https://cur.cursors-4u.net/games/gam-13/gam1282.cur'), auto !important;
+        }
+
+        /* CUSTOM HOVER CURSOR (Sonic Glove) */
+        a, button, input, textarea, .redpill, .bluepill, #closeModalBtn, #redirectModalBtn {
+            cursor: url('https://cur.cursors-4u.net/games/gam-14/gam1331.cur'), pointer !important;
+        }
+
+        /* Sonic Running Background Video/GIF */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        a {
+            color: #00ffff;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #ff00ff;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #ff0000;
+            text-shadow: 1px 1px 0px #ffff00;
+        }
+
+        .content-area {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #333;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Modal */
+        .modal-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal {
+            background-color: #000;
+            border: 3px solid #ff0000;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px #ff0000;
+            max-width: 500px;
+        }
+
+        .modal-header h3 { color: #ff0000; font-size: 24px; margin: 0 0 10px 0; }
+        .modal-body h4 { color: #00ff00; margin: 10px 0; }
+        .modal-body p { font-size: 20px; }
+
+        .modal-footer { margin-top: 20px; }
+        button {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: 2px solid #fff;
+            font-weight: bold;
+        }
+        .redpill { background-color: #aa0000; color: white; }
+        .redpill:hover { background-color: #ff0000; }
+        .bluepill { background-color: #0000aa; color: white; }
+        .bluepill:hover { background-color: #0000ff; }
+
+        /* Header / Nav */
+        .header { text-align: center; margin-top: 20px; position: relative; z-index: 10;}
+        .top-nav { line-height: 2.5; font-size: 18px; font-weight: bold; }
+        .top-nav a { margin: 0 5px; color: #00ffff; } 
+        
+        /* CSS Emeralds */
+        .emerald {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            transform: rotate(45deg);
+            margin: 0 8px;
+            vertical-align: middle;
+            border: 1px solid #fff;
+        }
+        .e-red { background: #ff0000; box-shadow: 0 0 5px #ff0000; }
+        .e-blue { background: #0000ff; box-shadow: 0 0 5px #0000ff; }
+        .e-orange { background: #ffa500; box-shadow: 0 0 5px #ffa500; }
+        .e-teal { background: #008080; box-shadow: 0 0 5px #008080; }
+        .e-silver { background: #c0c0c0; box-shadow: 0 0 5px #c0c0c0; }
+        .e-light-blue { background: #add8e6; box-shadow: 0 0 5px #add8e6; }
+        .e-purple { background: #800080; box-shadow: 0 0 5px #800080; }
+
+        /* Specific text */
+        .HarryPotterObamaSonic10Inu { color: #ff00ff; text-align: center; text-shadow: 2px 2px 0px #00f; }
+        .ca { font-weight: bold; font-size: 20px; }
+        .addy { color: #ffff00; word-break: break-all; }
+        .highlight { color: #00ff00; }
+        .larger-tx { font-size: 22px; }
+        
+        /* Blink */
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        /* Textareas */
+        textarea {
+            background: #000;
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        /* Meme Gallery */
+        #dank-memes img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 3px solid #00ffff;
+            margin: 5px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        #dank-memes img:hover {
+            transform: scale(1.5);
+            border-color: #ff00ff;
+            z-index: 100;
+            position: relative;
+        }
+        #dank-memes a { display: inline-block; }
+
+        hr {
+            height: 11px;
+            border-width: 0;
+            color: rgb(0 34 189);
+            background-color: rgb(0 34 189);
+            margin: 30px 0;
+        }
+
+        /* Mute Button */
+        #muteBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+            padding: 10px 15px;
+            font-family: "Courier New", Courier, monospace;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 0 10px #0f0;
+        }
+        #muteBtn:hover {
+            background-color: #0f0;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FONDO DE SONIC CORRIENDO (GIF Loop) -->
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3N2ZWNteWd2MzI0bmh3ZTB4eTJqajByZnI1ZWp6bDB3YWZ6YW15dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mdfPpglf2c0QxED151/giphy.gif" alt="" class="video-background">
+
+    <!-- MODAL -->
+    <div class="modal-wrapper" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>ETHEREUM (Ticker:ETHEREUM)</h3>
+            </div>
+            <div class="modal-body">
+                <h4>THE TRUE BOOTLEG SONIC ON SOLANA</h4>
+                <p>Do you accept Naruto Hockey Sonic?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="redpill" id="closeModalBtn" onclick="acceptTruth()">Yes</button>
+                <button class="bluepill" id="redirectModalBtn" onclick="rejectTruth()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Mute Button -->
+    <button id="muteBtn" onclick="toggleMusic()" style="display: none;">🔊 Mute</button>
+
+    <div style="width:100%">
+        <div class="header">
+            <div class="content-area">
+                <nav class="top-nav">
+                    <a href="#HarryPotterObamaSonic10Inu">Welcome ETHEREUM on SOLANA</a> <span class="emerald e-red"></span>
+                    <a href="#HowToBuy">How to Buy / Trade</a> <span class="emerald e-blue"></span>
+                    <a href="#About">About The Bootleg</a> <span class="emerald e-orange"></span>
+                    <a href="#Tokenomics">Tokenomics</a> <span class="emerald e-teal"></span>
+                    <a href="#" target="_blank">Chart</a> <span class="emerald e-silver"></span>
+                    <a href="#FunnyPictures">Funny Pictures</a> <span class="emerald e-orange"></span>
+                    <a href="#" target="_blank">Telegram</a> <span class="emerald e-teal"></span>
+                    <a href="#" target="_blank">Twitter</a> <span class="emerald e-silver"></span>
+                    <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">Pump.fun</a> <span class="emerald e-red"></span>
+                    
+                    <br><br>
+                    <marquee style="color:rgb(255, 166, 0); font-size: 34px; display:inline-block;font-weight:bold; background:rgba(0,0,0,0.5); padding:10px;">
+                        <img src="https://hpos10i.com/funny-pictures/Sonic-pulling.gif" height="40" alt="">
+                        <blink>THE PEOPLE'S ETHEREUM ON SOLANA</blink>
+                        <img src="https://hpos10i.com/funny-pictures/sonic-ring-header.gif" height="40" alt="">
+                    </marquee>
+                </nav>
+                <hr style="height:11px;border-width:0;color:rgb(0 34 189);background-color:rgb(0 34 189);">
+            </div>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <h1 class="HarryPotterObamaSonic10Inu">The ETHEREUM on SOLANA Project</h1>
+        
+        <p class="ca">
+            SOL Token: <span class="addy" id="contract-address">8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm</span>
+            <button onclick="copyToClipboard()" style="font-size: 14px; padding: 5px 10px; margin-left: 10px; background: #000; color: #0f0; border: 1px solid #0f0;">[ COPY CA ]</button>
+        </p>
+        
+        <p class="ca">
+            <span class="highlight">This token lives strictly on the Solana Network. Launched on PUMP.FUN.</span>
+        </p>
+        <ul> 
+            <li><span class="emerald e-blue"></span> <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">Go to Pump.fun to acquire $ETHEREUM</a></li>
+        </ul>
+
+        <h1>RoadMap to $100bn ( + ∞% )</h1>
+        <marquee direction="right" scrollamount="20" style="font-size: 50px;">
+            <img height="80" src="https://media.tenor.com/PbdhUeW0fSMAAAAC/sonic-crypto.gif" alt=""> 
+            🚀🚀🚀🚀🚀🚀🚀🚀 
+            <img height="80" src="https://media.tenor.com/kS9uH49b1ZgAAAAC/sonic-crazy.gif" alt="">
+        </marquee>
+    </div>
+    
+    <!-- Hero Image - Naruto Hockey Sonic -->
+    <div style="text-align:center; margin: 40px 0; position: relative; z-index: 10;">
+        <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/NarutoHockeySonic.jpg" alt="" style="width: 350px; height: 350px; border: 5px solid cyan; animation: blinker 2s infinite; object-fit: contain; background: #000;">
+    </div>
+    
+    <div class="content-area">
+        <h2 id="HowToBuy">Trade $ETHEREUM Here (Solana Swap Widget)</h2>
+        <ol class="larger-tx">
+            <li>
+                Connect your Phantom or Solflare wallet right here on the terminal.
+            </li>
+            <li>
+                Swap your SOL directly for $ETHEREUM using the Jupiter integration below <span class="emerald e-orange"></span>
+            </li>
+        </ol>
+
+        <!-- WIDGET DE JUPITER TERMINAL (SWAP) -->
+        <div style="margin: 40px auto; text-align: center;">
+            <div id="jupiter-terminal" style="width: 100%; max-width: 420px; height: 560px; margin: 0 auto; border: 5px solid cyan; border-radius: 15px; box-shadow: 0 0 30px cyan; overflow: hidden; background: #000;"></div>
+        </div>
+
+        <br><hr><br>
+
+        <h2 id="About">About The Bootleg Solana Token</h2>
+        <p class="parody" style="font-size: 24px; color:turquoise;">
+            <img src="https://media.tenor.com/Z8XnE88849EAAAAC/sonic-glitch.gif" style="float: left; width:150px; margin-right: 20px;" alt="">
+            🎭 Fakery and junk abounds when bootleggers think they can get away with knocking off Sonic the Hedgehog! But here on Solana, we embrace the bootleg. We are the unofficial, the unlicensed, the mutant hedgehogs.
+        </p>
+        <p style="font-size: 24px; color:turquoise">
+            Not since Harry Potter Obama has there been such a mashed-up bootleg! Step aside Harry Potter Obama, because here comes Naruto Hockey Sonic! And he's on a bike-seat, no less! Naruto never played hockey & bike-hockey doesn't exist so what even is this? Nobody knows... but it's the ultimate store of value. Fakers are desperate to fool people, combining several things regarded as popular into one irresistible item. That item is $ETHEREUM.
+        </p>
+        <p style="font-size: 24px; color:turquoise">
+            What's this red potato! A horrible looking red Sonic fake is here... droopy and bad, with reddish eyes, mishapen belly dot, legs sewn onto almost the same place on the body & tiny mitten hands. Is it Sonic vs Simpson? Is it Prince Banana 2? We are "Space Runner"! And we have a slogan! "I'm Out There!" Don't waste your money on official items when the $ETHEREUM bootleg is right here!
+        </p>
+        <div style="clear: both;"></div>
+        <br><hr><br>
+
+        <h2 id="Tokenomics">Tokenomics</h2>
+        <p style="font-size: 24px; color:turquoise">
+            The ETHEREUM smart contract on Solana has 0 tax on all buys and sells.<br>
+            The total supply of ETHEREUM is 1,000,000,000.<br>
+            Trust in ETHEREUM on SOLANA.<br>                
+        </p>
+
+        <br><hr><br>
+
+        <h2 id="FunnyPictures">Funny Pictures And Videos</h2>
+        
+        <div id="dank-memes">
+            <!-- Textareas/Copypastas Filled with Bootleg Lore -->
+            <textarea style="width:400px; height:300px; border-color: cyan; border-width: 1em;">Double the bootleg bounty with this dumb game!
+It's "Sonic vs Simpson" and both characters are equally ripped off. Look how international it's trying to be though, tons of languages over there to choose from: but none of them can choose quality.
+The Sonic is pretty mutant too, missing a finger, yellow eyes & blue arms. It looks like some kind of bike racing game, but with stolen (of course) Sonic backgrounds. Sadly, this game is real enough and got published... hopefully either the Simpsons or Sega spotted it and got it torn down.</textarea>
+
+            <textarea style="width:400px; height:300px; border-color: cyan; border-width: 1em;">Uh oh....here comes....Prince Banana! 2!
+But not really. Prince Banana, 2, or otherwise (whoever that is) is no-where to be seen on this rotten red cartridge fake. It has stolen some Sonic 2 palm trees art for the background, with a Coconuts Monkey badnick back there, but then plastered a big image of Knuckles over top of it, and wrote "Prince Banana 2" over him. If they were trying to imply/make people belive in this banana man, perhaps they shouldn't have covered up the monkey. Then, the top looks like it said "New Game", but on top of this is a sunburst shaped sticker that has "Super 2001" on it. All the random stuff just makes this a sort of funny jumble of nonsense.</textarea>
+
+            <textarea style="width:400px; height:300px; border-color: cyan; border-width: 1em;">A bootleg...sign?
+Seems so with "Big Brother" Tails the stolen bogus mascot they've got here. Whatever this place is, they couldn't think of a mascot of their own, so they ripped off Tails...literally! They ripped his tails off & added blue...pants? That are pulled up to his armpits? They left the rest of this CG sprite alone, it seems, aside from dressing him in a tacky way & removing the tails. The only hints here are the word "Copiadora" & a floating calculator & some maybe notebooks or something at the top.</textarea>
+
+            <textarea style="width:400px; height:300px; border-color: cyan; border-width: 1em;">A mini LCD game in a strange box, here is....
+New Super Mario Brothers The Hedgehog! If only the Mario Brothers were actually the "Alchemists Brothers" Alphonse & Edward Elric from Fullmetal Alchemist the Anime. So this one labels itself with 2 properties who's characters don't even appear, due to ripping off the grahpics from a third. Then, look at the game unit itself, it's got yet more characters all over it, who match absolutely nothing previous. They look like little cutie/chibi characters almost "Shopkins" like in color & number.</textarea>
+
+            <textarea style="width:400px; height:300px; border-color: cyan; border-width: 1em;">This Espio plush is a fake & boy is it ever dissapointed about it! Just look at the sour expression here first, then move on to all the wrong & bad details. There's no back spikes at all to be had, he doesn't really have a tail, the butt is just pointy, & for some reason the 'belly color' is just...a wierd yellow line? He never appeared with yellow there nor a line. Next up, there are only 3 fingers on his too-small hands.</textarea>
+
+            <br><br>
+            <!-- Galeria de Imagenes Bootleg Especificas -->
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/NarutoHockeySonic.jpg" alt="Naruto Hockey Sonic">
+            </a>
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/QueensGetMoneyBootleg.jpg" alt="Shadow Fake Artsy Tee">
+            </a>
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/BigBrotherFakeTails.jpg" alt="Big Brother Fake Tails Sign">
+            </a>
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/RedPotatoFake.jpg" alt="Red Potato Fake">
+            </a>
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/SonicVsSimpson.jpg" alt="Sonic vs Simpson">
+            </a>
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/PrincaBanana2Knuckles.jpg" alt="Prince Banana Knuckles Cartridge">
+            </a>
+            <a href="https://pump.fun/coin/8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm" target="_blank">
+                <img src="https://sonicgear.org/BootlegFakes/BootlegImages3/EspioFake1.jpg" alt="Sad Strange Fake Espio Doll">
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Iniciar el widget de Jupiter (Solana Swap)
+        window.Jupiter.init({
+            displayMode: "integrated",
+            integratedTargetId: "jupiter-terminal",
+            endpoint: "https://api.mainnet-beta.solana.com",
+            formProps: {
+                initialOutputMint: "8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm", // Tu token
+                initialInputMint: "8SjFSqSJ6DYAcBJrNGN76hEhcij5vtyJK5G819CvV7Fm"   // SOL
+            }
+        });
+
+        function acceptTruth() {
+            document.getElementById('modal').style.display = 'none';
+            var audio = document.getElementById('bg-music');
+            audio.play();
+            document.getElementById('muteBtn').style.display = 'block';
+        }
+
+        function rejectTruth() {
+            alert("YOU CANNOT ESCAPE NARUTO HOCKEY SONIC ON SOLANA.");
+            acceptTruth(); 
+        }
+
+        function copyToClipboard() {
+            var copyText = document.getElementById("contract-address").innerText;
+            var textArea = document.createElement("textarea");
+            textArea.value = copyText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();
+            alert("✅ CA COPIED: " + copyText);
+        }
+
+        function toggleMusic() {
+            var audio = document.getElementById('bg-music');
+            var btn = document.getElementById('muteBtn');
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "🔊 Mute";
+            } else {
+                audio.pause();
+                btn.innerText = "🔇 Play";
+            }
+        }
+    </script>
+</body>
+</html>
